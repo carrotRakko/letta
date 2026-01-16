@@ -133,7 +133,7 @@ def prepare_headers(request: Request, proxy_name: str, use_bearer_auth: bool = F
         "upgrade",
         "proxy-authenticate",
         "proxy-authorization",
-        "authorization",
+        # "authorization",  # Allow Authorization header to pass through for Max OAuth
     }
 
     headers = {}
