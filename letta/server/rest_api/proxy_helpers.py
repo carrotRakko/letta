@@ -142,8 +142,14 @@ def prepare_headers(request: Request, proxy_name: str, use_bearer_auth: bool = F
             headers[key] = value
 
     # Extract API key from headers or fallback to letta's key
+    # If Authorization Bearer token exists, pass through without fallback (for OAuth/Max users)
     api_key = None
-    if "x-api-key" in headers:
+    has_bearer_auth = "authorization" in headers and headers["authorization"].lower().startswith("bearer ")
+
+    if has_bearer_auth:
+        # Don't set api_key, let the Bearer token handle auth
+        logger.info(f"[{proxy_name}] Using Authorization Bearer token, skipping API key fallback")
+    elif "x-api-key" in headers:
         api_key = headers["x-api-key"]
     elif "anthropic-api-key" in headers:
         api_key = headers["anthropic-api-key"]
