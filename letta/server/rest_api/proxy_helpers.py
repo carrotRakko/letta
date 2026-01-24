@@ -553,7 +553,7 @@ async def get_or_create_claude_code_agent(
             tags=["claude-code"],
             enable_sleeptime=True,
             agent_type="letta_v1_agent",
-            model="anthropic/claude-sonnet-4-5-20250929",
+            model="anthropic/claude-haiku-4-5-20251001",
             embedding="openai/text-embedding-ada-002",
             project_id=project_id,
         )
