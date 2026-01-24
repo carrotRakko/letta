@@ -641,7 +641,8 @@ class SyncServer(object):
                     value=get_persona_text("sleeptime_memory_persona"),
                 ),
             ],
-            llm_config=main_agent.llm_config,
+            # Disable reasoner to force tool_choice=any, which suppresses text output
+            llm_config=main_agent.llm_config.model_copy(update={"enable_reasoner": False}),
             embedding_config=main_agent.embedding_config,
             project_id=main_agent.project_id,
         )
